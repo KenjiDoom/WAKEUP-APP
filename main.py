@@ -2,27 +2,21 @@ from pydub import AudioSegment
 from pydub.playback import play
 from PIL import ImageTk, Image
 from tkinter import *
-import time
-import os
+import time, sys, os
 
 def start_alarm():
+    time.sleep(1)
     alarm()
 def stop_alarm():
-    pass
+    exit()
 
 def alarm():
-    print("Alarm will go off in 1 hour")
-    time.sleep(1)
-    notification()
-
-def notification():
-    print("WAKE UP WAKE UP WAKE UP")
     try:
         while True:
             sound = AudioSegment.from_wav('/home/kenji/Desktop/WAKEUP-APP/affects/alarm-affect.wav')
             play(sound)
     except KeyboardInterrupt:
-        print("exiting...")
+        print("Exiting....")
 
 def gui():
     window = Tk()
