@@ -6,9 +6,23 @@ import time
 import os
 
 def start_alarm():
-    pass
+    alarm()
 def stop_alarm():
     pass
+
+def alarm():
+    print("Alarm will go off in 1 hour")
+    time.sleep(1)
+    notification()
+
+def notification():
+    print("WAKE UP WAKE UP WAKE UP")
+    try:
+        while True:
+            sound = AudioSegment.from_wav('/home/kenji/Desktop/WAKEUP-APP/affects/alarm-affect.wav')
+            play(sound)
+    except KeyboardInterrupt:
+        print("exiting...")
 
 def gui():
     window = Tk()
@@ -26,22 +40,6 @@ def gui():
 
     window.resizable(False, False)
     window.mainloop()
-
-def alarm():
-    print("Alarm will go off in 1 hour")
-    time.sleep(1)
-    notification()
-
-def notification():
-    print("WAKE UP WAKE UP WAKE UP")
-    try:
-        while True:
-            sound = AudioSegment.from_wav('/home/kenji/Desktop/WAKEUP-APP/affects/alarm-affect.wav')
-            play(sound)
-    except KeyboardInterrupt:
-        print("exiting...")
-
-
 
 if __name__ == '__main__':
     gui()
