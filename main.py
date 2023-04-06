@@ -5,6 +5,10 @@ from tkinter import *
 import time
 import os
 
+def start_alarm():
+    pass
+def stop_alarm():
+    pass
 
 def gui():
     window = Tk()
@@ -13,16 +17,15 @@ def gui():
     canvas1 = Canvas(window, width=650, height=500, relief='raised')
     canvas1.pack()
     
-    # We two buttons stop and restart
-    stop_button = Button(text="Stop")
-    canvas1.create_window(500, 300, window=stop_button)
-    # Restart button
-    restart_button = Button(text="Restart")
-    canvas1.create_window(500, 250, window=restart_button)
+    start_button = Button(text="Start", command=start_alarm)
+                        #width? #height
+    canvas1.create_window(250, 400, height=50, width=150, window=start_button)
+   
+    stop_button = Button(text="Stop", command=stop_alarm)
+    canvas1.create_window(400, 400, height=50, width=150, window=stop_button)
 
     window.resizable(False, False)
     window.mainloop()
-
 
 def alarm():
     print("Alarm will go off in 1 hour")
