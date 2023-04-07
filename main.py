@@ -18,22 +18,33 @@ def alarm():
     except KeyboardInterrupt:
         print("Exiting....")
 
-def gui():
-    window = Tk()
-    window.title("WAKE UP!")
-    # Canvas
-    canvas1 = Canvas(window, width=650, height=500, relief='raised')
-    canvas1.pack()
-    
-    start_button = Button(text="Start", command=start_alarm)
+def CountDown():
+    pass
+
+window = Tk()
+window.title("WAKE UP!")
+
+minute=StringVar()
+second=StringVar()
+
+minute.set("60")
+second.set("00")
+
+f = ("Arial",24)
+
+canvas1 = Canvas(window, width=650, height=500, relief='raised')
+canvas1.pack()
+
+minutes_box = Entry(window, width=3, font=f, textvariable=minute)
+minutes_box.place(x=170, y=100)
+
+start_button = Button(text="Start", command=start_alarm)
                         #width? #height
-    canvas1.create_window(250, 400, height=50, width=150, window=start_button)
+canvas1.create_window(250, 400, height=50, width=150, window=start_button)
    
-    stop_button = Button(text="Stop", command=stop_alarm)
-    canvas1.create_window(400, 400, height=50, width=150, window=stop_button)
+stop_button = Button(text="Stop", command=stop_alarm)
+canvas1.create_window(400, 400, height=50, width=150, window=stop_button)
 
-    window.resizable(False, False)
-    window.mainloop()
+window.resizable(False, False)
+window.mainloop()
 
-if __name__ == '__main__':
-    gui()
