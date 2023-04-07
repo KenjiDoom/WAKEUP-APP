@@ -22,7 +22,7 @@ def start_alarm():
 
         if (total_time == 0):
             messagebox.showinfo("WAKE UP", "WAKE UP TIME TO WAKE UP!!!!")
-            
+
         total_time -= 1
 
 def stop_alarm():
@@ -50,10 +50,10 @@ fpack = ("Arial",24)
 canvas1 = Canvas(window, width=650, height=500, relief='raised')
 canvas1.pack()
 
-minutes_box = Entry(window, width=3, font=fpack, textvariable=minute)
+minutes_box = Label(window, width=3, font=fpack, textvariable=minute)
 minutes_box.place(x=170, y=100)
 
-seconds_box = Entry(window, width=3, font=fpack, textvariable=second)
+seconds_box = Label(window, width=3, font=fpack, textvariable=second)
 seconds_box.place(x=250, y=100)
 
 start_button = Button(text="Start", command=start_alarm)
