@@ -5,8 +5,26 @@ from tkinter import *
 import time, sys, os
 
 def start_alarm():
-    time.sleep(1)
-    alarm()
+    try:
+        total_time = int(minute.get()) * 60 + int(second.get())
+    except:
+        messagebox.showwarning('', 'Invalid Input!')
+    while total_time >= 1:
+        mins, secs = divmod(total_time, 60)
+        if mins > 60:
+            mins = divmod(mins, 60)
+        
+        minute.set("{0:2d}".format(mins))
+        second.set("{0:2d}".format(secs))
+
+        window.update()
+        time.sleep(1)
+
+        if (total_time == 0):
+            messagebox.showinfo("WAKE UP", "WAKE UP TIME TO WAKE UP!!!!")
+            
+        total_time -= 1
+
 def stop_alarm():
     exit()
 
@@ -18,25 +36,25 @@ def alarm():
     except KeyboardInterrupt:
         print("Exiting....")
 
-def CountDown():
-    pass
-
 window = Tk()
 window.title("WAKE UP!")
 
 minute=StringVar()
 second=StringVar()
 
-minute.set("60")
-second.set("00")
+minute.set("00")
+second.set("03")
 
-f = ("Arial",24)
+fpack = ("Arial",24)
 
 canvas1 = Canvas(window, width=650, height=500, relief='raised')
 canvas1.pack()
 
-minutes_box = Entry(window, width=3, font=f, textvariable=minute)
+minutes_box = Entry(window, width=3, font=fpack, textvariable=minute)
 minutes_box.place(x=170, y=100)
+
+seconds_box = Entry(window, width=3, font=fpack, textvariable=second)
+seconds_box.place(x=250, y=100)
 
 start_button = Button(text="Start", command=start_alarm)
                         #width? #height
