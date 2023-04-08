@@ -4,8 +4,8 @@ from CTkMessagebox import CTkMessagebox
 import time, sys, os, pygame, customtkinter
 from tkinter import *
  
-customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
-customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
+customtkinter.set_appearance_mode("system")  # Modes: system (default), light, dark
+customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 pygame.mixer.init()
 
 def start_alarm():
@@ -45,22 +45,26 @@ window.title("WAKE UP!")
 minute=StringVar()
 second=StringVar()
 
-minute.set("00")
-second.set("01")
+# Fixed Time
+minute.set("10")
+second.set("11")
 
-fpack = ("Noto Sans Mandaic", 60)
+fpack = ("Noto Sans Mandaic", 100)
 
-canvas1 = Canvas(window, width=650, height=500, relief='raised')
+canvas1 = Canvas(window, width=650, height=500, relief='raised', background="white")
 canvas1.pack()
 
+# Semicolon Label
+#semi_colon = customtkinter.CTkLabel(master=window, width=0, height=0, fg_color="black",font=('Noto Sans Mandaic', 100), text=":")
+#semi_colon.place(x=300, y=150, anchor="center")
 
 # Minute Label
-minutes_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, textvariable=minute)
-minutes_box.place(x=170, y=100)
+minutes_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="white", textvariable=minute)
+minutes_box.place(x=250, y=150, anchor="center")
 
 # Second Label
-seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, textvariable=second)
-seconds_box.place(x=300, y=100)
+seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="white", textvariable=second)
+seconds_box.place(x=400, y=150, anchor="center")
 
 # Start button
 start_button = customtkinter.CTkButton(master=window, text="Start", command=start_alarm)
