@@ -9,7 +9,7 @@ def start_alarm():
         total_time = int(minute.get()) * 60 + int(second.get())
     except:
         messagebox.showwarning('', 'Invalid Input!')
-    while total_time >= 1:
+    while total_time >- 1:
         mins, secs = divmod(total_time, 60)
         if mins > 60:
             mins = divmod(mins, 60)
@@ -21,6 +21,7 @@ def start_alarm():
         time.sleep(1)
 
         if (total_time == 0):
+            print("POP MESSAGE")
             messagebox.showinfo("WAKE UP", "WAKE UP TIME TO WAKE UP!!!!")
 
         total_time -= 1
