@@ -1,8 +1,11 @@
 from PIL import ImageTk, Image
 from tkinter import messagebox
-import time, sys, os, pygame
+from CTkMessagebox import CTkMessagebox
+import time, sys, os, pygame, customtkinter
 from tkinter import *
  
+customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
+customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 pygame.mixer.init()
 
 def start_alarm():
@@ -24,15 +27,19 @@ def start_alarm():
         if (total_time == 0):
             pygame.mixer.music.load("/home/kenji/Desktop/WAKEUP-APP/affects/alarm-affect.wav")
             pygame.mixer.music.play(loops=0)
-            messagebox.showinfo("WAKE UP", "WAKE UP TIME TO WAKE UP!!!!")
-            exit()
-
+            #messagebox.showinfo("WAKE UP", "WAKE UP TIME TO WAKE UP!!!!")
+            msg = CTkMessagebox(title="WAKE UP!", message="1 HOUR OF CODE IS UP!",
+                  icon="warning", option_1="Exit")
+    
+            if msg.get()=="Exit":
+                exit()
+                
         total_time -= 1
 
 def stop_program():
     exit()
 
-window = Tk()
+window = customtkinter.CTk()
 window.title("WAKE UP!")
 
 minute=StringVar()
@@ -41,28 +48,28 @@ second=StringVar()
 minute.set("00")
 second.set("01")
 
-fpack = ("Noto Sans Mandaic",40)
+fpack = ("Noto Sans Mandaic", 60)
 
 canvas1 = Canvas(window, width=650, height=500, relief='raised')
 canvas1.pack()
 
 
 # Minute Label
-minutes_box = Label(window, width=3, font=fpack, textvariable=minute)
+minutes_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, textvariable=minute)
 minutes_box.place(x=170, y=100)
 
 # Second Label
-seconds_box = Label(window, width=3, font=fpack, textvariable=second)
+seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, textvariable=second)
 seconds_box.place(x=300, y=100)
 
 # Start button
-start_button = Button(text="Start", command=start_alarm)
+start_button = customtkinter.CTkButton(master=window, text="Start", command=start_alarm)
                         #width? #height
 canvas1.create_window(250, 400, height=50, width=150, window=start_button)
 
 # Stop Button   
-stop_button = Button(text="Stop", command=stop_program)
-canvas1.create_window(400, 400, height=50, width=150, window=stop_button)
+stop_button = customtkinter.CTkButton(master=window, text="Stop", command=stop_program)
+canvas1.create_window(410, 400, height=50, width=150, window=stop_button)
 
 window.resizable(False, False)
 window.mainloop()
