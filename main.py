@@ -66,8 +66,11 @@ minutes_box.place(x=250, y=150, anchor="center")
 seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="white", textvariable=second)
 seconds_box.place(x=400, y=150, anchor="center")
 
+# Image for Start button
+button_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/play-icon.png')
+photo_image_one = button_photo.subsample(10, 10)
 # Start button
-start_button = customtkinter.CTkButton(master=window, text="Start", command=start_alarm)
+start_button = Button(master=window, text="Start", background='white', image=photo_image_one, command=start_alarm)
                         #width? #height
 canvas1.create_window(250, 400, height=50, width=150, window=start_button)
 
