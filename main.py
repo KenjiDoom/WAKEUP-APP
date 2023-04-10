@@ -46,29 +46,31 @@ minute=StringVar()
 second=StringVar()
 
 # Fixed Time
-minute.set("10")
-second.set("00")
+minute.set("00")
+second.set("01")
 
-fpack = ("Noto Sans Mandaic", 100)
+fpack = ("Noto Sans Mandaic bold", 80)
 
 canvas1 = Canvas(window, width=650, height=500, relief='raised', background="black")
 canvas1.pack()
 
+# Blue background frame to solve (blue span on labels)
+frame = customtkinter.CTkFrame(master=window, fg_color='royal blue', width=300, height=124).place(x=320, y=150, anchor='center')
+
 # Minute Label
-# what is causing this label to span the entire screen?
-# The problem was the label function, i was using the tkinters built-in instead of CTKLabel.
-minutes_box = customtkinter.CTkLabel(master=window, width=0, height=0, font=fpack, fg_color="royal blue", text_color='black', textvariable=minute)
+ #Message( root, text = "A computer science portal for geeks")  
+minutes_box = customtkinter.CTkLabel(window, font=fpack, fg_color="royal blue", textvariable=minute)
 minutes_box.place(x=250, y=150, anchor="center")
 
 # Second Label
-seconds_box = customtkinter.CTkLabel(master=window, width=0, height=0, font=fpack, fg_color="royal blue", text_color='black', textvariable=second)
+seconds_box = customtkinter.CTkLabel(master=window, width=0, height=0, font=fpack, fg_color="royal blue", textvariable=second)
 seconds_box.place(x=400, y=150, anchor="center")
 
 # Image for Start button
 button_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/play-icon.png')
 photo_image_one = button_photo.subsample(10, 10)
 # Start button
-start_button = Button(master=window, text="Start", background='green', image=photo_image_one, command=start_alarm)
+start_button = Button(master=window, text="Start", background='white', image=photo_image_one, command=start_alarm)
                         #width? #height
 canvas1.create_window(250, 400, height=50, width=150, window=start_button)
 
