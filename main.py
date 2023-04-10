@@ -47,19 +47,21 @@ second=StringVar()
 
 # Fixed Time
 minute.set("10")
-second.set("11")
+second.set("00")
 
 fpack = ("Noto Sans Mandaic", 100)
 
-canvas1 = Canvas(window, width=650, height=500, relief='ridge', background="black")
+canvas1 = Canvas(window, width=650, height=500, relief='raised', background="black")
 canvas1.pack()
 
 # Minute Label
-minutes_box = Label(master=window, width=3, height=3, font=fpack, background="blue", foreground='black', textvariable=minute)
+# what is causing this label to span the entire screen?
+# The problem was the label function, i was using the tkinters built-in instead of CTKLabel.
+minutes_box = customtkinter.CTkLabel(master=window, width=0, height=0, font=fpack, fg_color="royal blue", text_color='black', textvariable=minute)
 minutes_box.place(x=250, y=150, anchor="center")
 
 # Second Label
-seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="blue", text_color='white', textvariable=second)
+seconds_box = customtkinter.CTkLabel(master=window, width=0, height=0, font=fpack, fg_color="royal blue", text_color='black', textvariable=second)
 seconds_box.place(x=400, y=150, anchor="center")
 
 # Image for Start button
