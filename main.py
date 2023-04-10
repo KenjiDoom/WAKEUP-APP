@@ -58,9 +58,10 @@ canvas1.pack()
 frame = customtkinter.CTkFrame(master=window, fg_color='royal blue', width=300, height=124).place(x=320, y=150, anchor='center')
 
 # Minute Label
- #Message( root, text = "A computer science portal for geeks")  
 minutes_box = customtkinter.CTkLabel(window, font=fpack, fg_color="royal blue", textvariable=minute)
 minutes_box.place(x=250, y=150, anchor="center")
+
+semi_coloan = customtkinter.CTkLabel(master=frame, text=':', font=('Noto Sans Mandaic bold', 80), fg_color='royal blue', width=20, height=50).place(x=329, y=146, anchor='center')
 
 # Second Label
 seconds_box = customtkinter.CTkLabel(master=window, width=0, height=0, font=fpack, fg_color="royal blue", textvariable=second)
