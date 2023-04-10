@@ -4,7 +4,7 @@ from CTkMessagebox import CTkMessagebox
 import time, sys, os, pygame, customtkinter
 from tkinter import *
  
-customtkinter.set_appearance_mode("system")  # Modes: system (default), light, dark
+customtkinter.set_appearance_mode("light")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 pygame.mixer.init()
 
@@ -51,31 +51,31 @@ second.set("11")
 
 fpack = ("Noto Sans Mandaic", 100)
 
-canvas1 = Canvas(window, width=650, height=500, relief='raised', background="white")
+canvas1 = Canvas(window, width=650, height=500, relief='ridge', background="black")
 canvas1.pack()
 
-# Semicolon Label
-#semi_colon = customtkinter.CTkLabel(master=window, width=0, height=0, fg_color="black",font=('Noto Sans Mandaic', 100), text=":")
-#semi_colon.place(x=300, y=150, anchor="center")
-
 # Minute Label
-minutes_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="white", textvariable=minute)
+minutes_box = Label(master=window, width=3, height=3, font=fpack, background="blue", foreground='black', textvariable=minute)
 minutes_box.place(x=250, y=150, anchor="center")
 
 # Second Label
-seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="white", textvariable=second)
+seconds_box = customtkinter.CTkLabel(master=window, width=3, height=3, font=fpack, fg_color="blue", text_color='white', textvariable=second)
 seconds_box.place(x=400, y=150, anchor="center")
 
 # Image for Start button
 button_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/play-icon.png')
 photo_image_one = button_photo.subsample(10, 10)
 # Start button
-start_button = Button(master=window, text="Start", background='white', image=photo_image_one, command=start_alarm)
+start_button = Button(master=window, text="Start", background='green', image=photo_image_one, command=start_alarm)
                         #width? #height
 canvas1.create_window(250, 400, height=50, width=150, window=start_button)
 
+# Image for Stop button
+stop_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/stop-icon.png')
+photo_image_two = stop_photo.subsample(17, 17)
+
 # Stop Button   
-stop_button = customtkinter.CTkButton(master=window, text="Stop", command=stop_program)
+stop_button = Button(master=window, text="Stop", background='white', image=photo_image_two, command=stop_program)
 canvas1.create_window(410, 400, height=50, width=150, window=stop_button)
 
 window.resizable(False, False)
