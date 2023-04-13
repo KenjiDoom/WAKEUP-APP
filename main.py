@@ -9,42 +9,24 @@ customtkinter.set_appearance_mode("light")  # Modes: system (default), light, da
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 pygame.mixer.init()
 
-
-def threading(button_press):
-    #    I attempted to multi-thread, but I'm still not knowledgeable enough on the topic.
-    if button_press == 'start':
-        t1 = Thread(target=start_alarm())
-        t1.start()
-    elif button_press == 'stop':
-        t2 = Thread(target=stop_program())
-        t2.start()
-    elif button_press == 'play_sound':
-        t3 = Thread(target=play_sound())
-        t3.start()
+flag = True
 
 def start_alarm():
-    try:
-        total_time = int(minute.get()) * 60 + int(second.get())
-    except:
-        messagebox.showwarning('', 'Invalid Input!')
-    while total_time >- 1:
+    global flag
+    total_time = int(minute.get()) * 60 + int(second.get())
+    while total_time >- 1 and not flag:
         mins, secs = divmod(total_time, 60)
         if mins > 60:
             mins = divmod(mins, 60)
-        
         minute.set("{0:2d}".format(mins))
         second.set("{0:2d}".format(secs))
-
         window.update()
-        # It has to do with time.sleep() according to the docs, time.sleep() pauses the entire program before allowing you do to anything else
-        # Hence the multi-thread, but I didn't implement it correctly.
+        print("APP is still running")
         time.sleep(1)
-
+        total_time -= 1
         if (total_time == 0):
             print("Function is running...")
-            threading('play_sound')
-
-        total_time -= 1
+            play_sound()
 
 def play_sound():
     pygame.mixer.music.load('/home/kenji/Desktop/WAKEUP-APP/affects/alarm-affect.wav')
@@ -57,7 +39,13 @@ def play_sound():
         pass
 
 def stop_program():
-    exit()
+    global flag
+    flag = True
+
+def start_timer():
+    global flag
+    flag = False
+    start_alarm()
 
 window = customtkinter.CTk()
 window.title("Coding Timer")
@@ -91,7 +79,7 @@ seconds_box.place(x=400, y=150, anchor="center")
 button_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/play-icon.png')
 photo_image_one = button_photo.subsample(10, 10)
 # Start button
-start_button = Button(master=window, text="Start", background='white', image=photo_image_one, command=lambda m='start': threading(m))
+start_button = Button(master=window, text="Start", background='white', image=photo_image_one, command=start_timer)
                         #width? #height
 canvas1.create_window(250, 400, height=50, width=150, window=start_button)
 
@@ -100,7 +88,7 @@ stop_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/stop-icon.p
 photo_image_two = stop_photo.subsample(17, 17)
 
 # Stop Button   
-stop_button = Button(master=window, text="Stop", background='white', image=photo_image_two, command=lambda m='stop': threading(m))
+stop_button = Button(master=window, text="Stop", background='white', image=photo_image_two, command=stop_program)
 canvas1.create_window(410, 400, height=50, width=150, window=stop_button)
 
 
