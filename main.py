@@ -11,6 +11,7 @@ pygame.mixer.init()
 
 
 def threading(button_press):
+    #    I attempted to multi-thread, but I'm still not knowledgeable enough on the topic.
     if button_press == 'start':
         t1 = Thread(target=start_alarm())
         t1.start()
@@ -35,9 +36,12 @@ def start_alarm():
         second.set("{0:2d}".format(secs))
 
         window.update()
+        # It has to do with time.sleep() according to the docs, time.sleep() pauses the entire program before allowing you do to anything else
+        # Hence the multi-thread, but I didn't implement it correctly.
         time.sleep(1)
 
         if (total_time == 0):
+            print("Function is running...")
             threading('play_sound')
 
         total_time -= 1
