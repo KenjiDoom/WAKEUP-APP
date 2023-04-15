@@ -1,7 +1,7 @@
 from tkinter import messagebox
 from tkinter import *
 import customtkinter
-import pygame, sys, os, time
+import pygame
 
 pygame.mixer.init()
 
@@ -96,6 +96,7 @@ class App(customtkinter.CTk):
         result = messagebox.askyesno('Quit', 'Do you want to quit?')
 
         if result == True:
+            self.pause_timer()
             self.destroy()
             exit()
         elif result == False:
