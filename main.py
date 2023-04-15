@@ -39,7 +39,7 @@ class App(customtkinter.CTk):
         self.photo_image_one = self.button_photo.subsample(10, 10) # Resizing image
         # Start button
         self.start_button = Button(master=self, text="Start", background='white', image=self.photo_image_one) # Dont foget the command for function
-        self.start_button.place(x=250, y=400, height=50, width=150)
+        self.start_button.place(x=150, y=310, height=50, width=150)
 
         # Image for Stop button
         self.stop_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/stop-icon.png')
@@ -47,7 +47,9 @@ class App(customtkinter.CTk):
 
         # Stop Button   
         self.stop_button = Button(master=self, text="Stop", background='white', image=self.photo_image_two)
-        self.stop_button.place(x=410, y=400, height=50, width=150)
+        self.stop_button.place(x=340, y=310, height=50, width=150)
+
+
 app = App()
 app.configure(fg_color='black')
 app.resizable(False, False)
