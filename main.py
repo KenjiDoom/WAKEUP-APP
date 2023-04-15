@@ -5,8 +5,9 @@ import pygame, sys, os, time
 
 pygame.mixer.init()
 
+flag = True
+
 class App(customtkinter.CTk):
-    flag = True
     def __init__(self):
         super().__init__()
         self.geometry("650x500")
@@ -41,14 +42,14 @@ class App(customtkinter.CTk):
         self.button_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/play-icon.png')
         self.photo_image_one = self.button_photo.subsample(10, 10) # Resizing image
         # Start button
-        self.start_button = Button(master=self, text="Start", background='white', image=self.photo_image_one, command=self.starting_alarm_display) # Dont foget the command for function
+        self.start_button = Button(master=self, text="Start", background='white', image=self.photo_image_one, command=self.start_timer) # Dont foget the command for function
         self.start_button.place(x=150, y=310, height=50, width=150)
 
         # Image for Stop button
         self.stop_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/stop-icon.png')
         self.photo_image_two = self.stop_photo.subsample(17, 17)
         # Stop Button   
-        self.stop_button = Button(master=self, text="Stop", background='white', image=self.photo_image_two)
+        self.stop_button = Button(master=self, text="Stop", background='white', image=self.photo_image_two, command=self.pause_timer)
         self.stop_button.place(x=340, y=310, height=50, width=150)
 
 
@@ -65,12 +66,11 @@ class App(customtkinter.CTk):
             self.update()
             
             print('App running')
-            # Trying .after() instead of .sleep()
-            time.sleep(1)
-            #self.after(1000)
+            self.after(1000)
             total_time -= 1
             if (total_time == 0):
                 print('Playing sound....')
+                self.play_sound()
 
     def start_timer(self):
         global flag
@@ -78,10 +78,19 @@ class App(customtkinter.CTk):
         self.starting_alarm_display()
     
     def pause_timer(self):
-        pass
+        print('The app has been pasued')
+        global flag
+        flag = True
 
     def play_sound(self):
-        pass
+        pygame.mixer.music.load('/home/kenji/Desktop/WAKEUP-APP/affects/alarm-affect.wav')
+        pygame.mixer.music.play(loops=0)
+        result = messagebox.askyesno('Timer is up!', "The program is done counting, would you like to exit?", icon='warning')
+        if result == True:
+            exit()
+        elif result == False:
+            pygame.mixer.music.stop()
+
     
     def window_close_event(self):
         result = messagebox.askyesno('Quit', 'Do you want to quit?')
