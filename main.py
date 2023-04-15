@@ -1,8 +1,7 @@
 from PIL import ImageTk, Image
 from tkinter import messagebox
 from CTkMessagebox import CTkMessagebox
-import time, sys, os, pygame, customtkinter
-from threading import *
+import time, os, pygame, customtkinter
 from tkinter import *
  
 customtkinter.set_appearance_mode("light")  # Modes: system (default), light, dark
@@ -20,8 +19,12 @@ def start_alarm():
             mins = divmod(mins, 60)
         minute.set("{0:2d}".format(mins))
         second.set("{0:2d}".format(secs))
+        
+        # It has something to do with the update() function. supposly tkinter still runs this command after and the while loop doesn't
+        # get updated fast enough.
         window.update()
-        print("APP is still running")
+        print('App still running')
+        print('Why does the app still continue to run even with it closed...')
         time.sleep(1)
         total_time -= 1
         if (total_time == 0):
@@ -39,6 +42,7 @@ def play_sound():
         pass
 
 def stop_program():
+    print('The app has been stopped')
     global flag
     flag = True
 
@@ -46,6 +50,16 @@ def start_timer():
     global flag
     flag = False
     start_alarm()
+
+def windowclosing_event():
+    result = messagebox.askyesno('Quit', 'Do you want to quit?')
+        
+    if result == True:
+        stop_program()
+        window.destroy()
+        exit()
+    elif result == False:
+        print('Resume process...')
 
 window = customtkinter.CTk()
 window.title("Coding Timer")
@@ -55,7 +69,7 @@ second=StringVar()
 
 # Fixed Time
 minute.set("00")
-second.set("04")
+second.set("10")
 
 fpack = ("Noto Sans Mandaic bold", 80)
 
@@ -91,8 +105,8 @@ photo_image_two = stop_photo.subsample(17, 17)
 stop_button = Button(master=window, text="Stop", background='white', image=photo_image_two, command=stop_program)
 canvas1.create_window(410, 400, height=50, width=150, window=stop_button)
 
-
 if __name__ == "__main__":
     window.resizable(False, False)
+    window.protocol("WM_DELETE_WINDOW", windowclosing_event)
     window.mainloop()
 
