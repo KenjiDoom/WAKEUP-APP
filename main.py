@@ -1,10 +1,12 @@
-import customtkinter
+from tkinter import messagebox
 from tkinter import *
+import customtkinter
 import pygame, sys, os, time
 
 pygame.mixer.init()
 
 class App(customtkinter.CTk):
+    flag = True
     def __init__(self):
         super().__init__()
         self.geometry("650x500")
@@ -14,8 +16,9 @@ class App(customtkinter.CTk):
         self.minute=StringVar()
         self.second=StringVar()
 
-        self.minute.set("10")
-        self.second.set("10")
+        # Fixed time
+        self.minute.set("00")
+        self.second.set("05")
         
         # Fonts
         font_pack = ("Noto Sans Mandaic bold", 80)
@@ -38,19 +41,60 @@ class App(customtkinter.CTk):
         self.button_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/play-icon.png')
         self.photo_image_one = self.button_photo.subsample(10, 10) # Resizing image
         # Start button
-        self.start_button = Button(master=self, text="Start", background='white', image=self.photo_image_one) # Dont foget the command for function
+        self.start_button = Button(master=self, text="Start", background='white', image=self.photo_image_one, command=self.starting_alarm_display) # Dont foget the command for function
         self.start_button.place(x=150, y=310, height=50, width=150)
 
         # Image for Stop button
         self.stop_photo = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/stop-icon.png')
         self.photo_image_two = self.stop_photo.subsample(17, 17)
-
         # Stop Button   
         self.stop_button = Button(master=self, text="Stop", background='white', image=self.photo_image_two)
         self.stop_button.place(x=340, y=310, height=50, width=150)
 
 
+    def starting_alarm_display(self):
+        global flag
+        total_time = int(self.minute.get()) * 60 + int(self.second.get())
+        while total_time >- 1 and not flag:
+            mins, secs = divmod(total_time, 60)
+            if mins > 60:
+                mins = divmod(mins, 60)
+            
+            self.minute.set("{0:2d}".format(mins))
+            self.second.set("{0:2d}".format(secs))
+            self.update()
+            
+            print('App running')
+            # Trying .after() instead of .sleep()
+            time.sleep(1)
+            #self.after(1000)
+            total_time -= 1
+            if (total_time == 0):
+                print('Playing sound....')
+
+    def start_timer(self):
+        global flag
+        flag = False
+        self.starting_alarm_display()
+    
+    def pause_timer(self):
+        pass
+
+    def play_sound(self):
+        pass
+    
+    def window_close_event(self):
+        result = messagebox.askyesno('Quit', 'Do you want to quit?')
+
+        if result == True:
+            self.destroy()
+            exit()
+        elif result == False:
+            print('Resuiming Process')
+
+
 app = App()
 app.configure(fg_color='black')
 app.resizable(False, False)
+app.protocol("WM_DELETE_WINDOW", app.window_close_event)
 app.mainloop()
