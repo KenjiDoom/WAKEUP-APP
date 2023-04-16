@@ -51,6 +51,10 @@ class App(customtkinter.CTk):
         # Stop Button   
         self.stop_button = Button(master=self, text="Stop", background='white', image=self.photo_image_two, command=self.pause_timer)
         self.stop_button.place(x=340, y=310, height=50, width=150)
+        
+        # Icon image for app
+        self.icon_image = PhotoImage(file='/home/kenji/Desktop/WAKEUP-APP/affects/wake-up.png')
+        self.iconphoto(False, self.icon_image)
 
 
     def starting_alarm_display(self):
